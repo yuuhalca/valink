@@ -7,6 +7,11 @@
         <button class="button button-primary">取得</button>
     </form>
     <?php if (get_transient('Valink')) : ?>
-        <p><?php echo get_transient('Valink'); ?></p>
+        <p class="link-field"><?php echo get_transient('Valink'); ?></p>
     <?php endif; ?>
+    <script>
+        jQuery(".link-field").on("click",function(){
+            console.log("a");
+        });
+    </script>
 </div>
