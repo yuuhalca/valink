@@ -8,10 +8,18 @@
     </form>
     <?php if (get_transient('Valink')) : ?>
         <p class="link-field"><?php echo get_transient('Valink'); ?></p>
+        <p class="copy"></p>
     <?php endif; ?>
     <script>
-        jQuery(".link-field").on("click",function(){
-            console.log("a");
+        jQuery(".link-field").on("click", function() {
+            let text = jQuery(".link-field").text();
+            jQuery(".copy").text("コピーしました");
+
+            if (navigator.clipboard == undefined) {
+                window.clipboardData.setData("Text", text);
+            } else {
+                navigator.clipboard.writeText(text);
+            }
         });
     </script>
 </div>
