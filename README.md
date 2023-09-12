@@ -18,7 +18,7 @@ Get direct permalinks to variations of variation products.
 * About direct links to variations.
   * Normally, you will only get a link to the variation product parent page.
   * With this plugin, you can get direct links to variations.
-  * When you open the link, it opens with the option already selected.  
+  * When you open the link, it opens with the option already selected.
 
 
 
