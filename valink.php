@@ -31,7 +31,7 @@ class Valink
     
     function add()
     {
-        include_once 'views/Valink_get.php';
+        include_once 'views/Valink-get.php';
         exit;
     }
     function save()
