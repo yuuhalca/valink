@@ -1,10 +1,12 @@
 <?php
 
 /**
- * 
- * Plugin Name: Valink
+ * Plugin Name:Valink
+ * Plugin URI: プラグインのURL
+ * Description:バリエーション商品単品のパーマリンクを取得する（任意のオプションが選択された状態のURLが取得できる）
  * Version: 1.0.0
- * 
+ * Author: Yu Ishiga
+ * Author URI: https://backcountry-works.com
  */
 
 defined('ABSPATH') || exit;
