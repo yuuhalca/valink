@@ -11,7 +11,7 @@
 
 defined('ABSPATH') || exit;
 
-class ArmsTest
+class Valink
 {
     static function init()
     {
@@ -66,4 +66,4 @@ class ArmsTest
         }
     }
 }
-add_action('init', 'ArmsTest::init');
+add_action('init', 'Valink::init');
