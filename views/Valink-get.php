@@ -1,5 +1,6 @@
 <div class="wrap">
-    <h1>登録</h1>
+    <h1>リンク取得</h1>
+    <p>入力欄に品番を入れて商品のバリエーションへの直リンクを取得できます</p>
 
     <form method="post" action="<?php echo menu_page_url('Valink', false) . '&action=save'; ?>">
         <?php wp_nonce_field('Valink-save', 'name_of_nonce_field'); ?>
