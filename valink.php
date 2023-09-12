@@ -4,7 +4,7 @@
  * Plugin Name:Valink
  * Plugin URI: プラグインのURL
  * Description:バリエーション商品単品のパーマリンクを取得する（任意のオプションが選択された状態のURLが取得できる）
- * Version: 1.0.0
+ * Version: 1.5.2
  * Author: Yu Ishiga
  * Author URI: https://backcountry-works.com
  */
@@ -20,7 +20,7 @@ class Valink
     function __construct()
     {
         add_action('admin_menu', [$this, 'setMenus']);
-        add_action('admin_init', [$this, 'save']); // 追加
+        add_action('admin_init', [$this, 'save']);
     }
 
     function setMenus()
@@ -28,7 +28,7 @@ class Valink
         add_menu_page('Valink', 'Valink', 'manage_options', 'Valink', null, 'dashicons-list-view',  50);
         add_submenu_page('Valink', '登録', '登録', 'manage_options', 'Valink', [$this, 'add']);
     }
-    
+
     function add()
     {
         include_once 'views/Valink-get.php';
@@ -36,9 +36,7 @@ class Valink
     }
     function save()
     {
-        // 保存処理
         if (!empty($_GET['action']) && $_GET['action'] == 'save') {
-            // nonceのチェック
             if (!wp_verify_nonce($_POST['name_of_nonce_field'], 'Valink-save')) {
                 exit;
             }
@@ -56,11 +54,8 @@ class Valink
             $id = $the_query->post->ID;
             $link = get_the_permalink($id);
 
-
-            // メッセージ表示設定
             set_transient('Valink', $link, 5);
 
-            // リダイレクト
             wp_redirect(menu_page_url('Valink', false));
             exit;
         }
