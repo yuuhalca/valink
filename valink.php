@@ -25,13 +25,13 @@ class Valink
 
     function setMenus()
     {
-        add_menu_page('Valink', 'Valink', 'manage_options', 'arms-test', null, 'dashicons-list-view',  50);
-        add_submenu_page('arms-test', '登録', '登録', 'manage_options', 'arms-test', [$this, 'add']);
+        add_menu_page('Valink', 'Valink', 'manage_options', 'Valink', null, 'dashicons-list-view',  50);
+        add_submenu_page('Valink', '登録', '登録', 'manage_options', 'Valink', [$this, 'add']);
     }
     
     function add()
     {
-        include_once 'views/arms-test-add.php';
+        include_once 'views/Valink_get.php';
         exit;
     }
     function save()
@@ -39,7 +39,7 @@ class Valink
         // 保存処理
         if (!empty($_GET['action']) && $_GET['action'] == 'save') {
             // nonceのチェック
-            if (!wp_verify_nonce($_POST['name_of_nonce_field'], 'arms-test-save')) {
+            if (!wp_verify_nonce($_POST['name_of_nonce_field'], 'Valink-save')) {
                 exit;
             }
 
@@ -58,10 +58,10 @@ class Valink
 
 
             // メッセージ表示設定
-            set_transient('arms-test', $link, 5);
+            set_transient('Valink', $link, 5);
 
             // リダイレクト
-            wp_redirect(menu_page_url('arms-test', false));
+            wp_redirect(menu_page_url('Valink', false));
             exit;
         }
     }
