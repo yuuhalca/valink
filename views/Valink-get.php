@@ -1,4 +1,23 @@
 <div class="wrap">
+    <style>
+        p.link-field {
+            display: flex;
+            background: white;
+            padding: 10px;
+            word-break: break-all;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, .3);
+        }
+
+        p.link-field:active {
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, .3);
+        }
+
+        p.link-field:hover {
+            background: #eaeaea;
+        }
+    </style>
     <h1>リンク取得</h1>
     <p>入力欄に品番を入れて商品のバリエーションへの直リンクを取得できます</p>
 
