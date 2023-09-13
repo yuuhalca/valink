@@ -53,6 +53,20 @@ class Valink
             $the_query = new WP_Query($args);
             $id = $the_query->post->ID;
             $link = get_the_permalink($id);
+            if ($link == ""){
+                $args = array(
+                    'post_type'     =>  'product',
+                    'meta_query'    =>  array(
+                        array(
+                            'key' => '_sku',
+                            'value' =>  $_POST["hoge"]
+                        )
+                    )
+                );
+                $the_query = new WP_Query($args);
+                $id = $the_query->post->ID;
+                $link = get_the_permalink($id);
+            }
 
             set_transient('Valink', $link, 5);
 
