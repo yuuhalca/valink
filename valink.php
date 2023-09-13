@@ -42,6 +42,7 @@ class Valink
             }
 
             $args = array(
+                'post_type'     =>  'product_variation',
                 'meta_query'    =>  array(
                     array(
                         'key' => '_sku',
