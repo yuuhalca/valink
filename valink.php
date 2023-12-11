@@ -38,7 +38,7 @@ class Valink
     {
         
         if (!empty($_GET['action']) && sanitize_text_field($_GET['action']) == 'save') {
-            if(!isset($_POST['prefix_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['name_of_nonce_field'])), 'Valink-save')) {
+            if(!isset($_POST['prefix_nonce']) || !wp_verify_nonce(sanitize_text_field($_POST['name_of_nonce_field']), 'Valink-save')) {
                 exit;
             }
 
