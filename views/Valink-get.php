@@ -35,7 +35,7 @@ if(isset($_POST["sku"])){
         <input type="text" name="sku" value="<?=$sku?>" />
         <button class="button button-primary">取得</button>
     </form>
-    <?php if (get_transient('Valink')) : ?>
+    <?php if (get_transient('VL_data_trans')) : ?>
         <p class="link-field"><?php echo esc_html(get_transient('VL_data_trans')); ?></p>
         <p class="copy"></p>
     <?php endif; ?>
