@@ -28,13 +28,13 @@ if(isset($_POST["sku"])){
     <h1>リンク取得</h1>
     <p>入力欄に品番を入れて商品のバリエーションへの直リンクを取得できます</p>
 
-    <form method="post" action="<?php echo menu_page_url('Valink', false) . '&action=save'; ?>">
+    <form method="post" action="<?php echo esc_url(menu_page_url('Valink', false)) . '&action=save'; ?>">
         <?php wp_nonce_field('Valink-save', 'name_of_nonce_field'); ?>
         <input type="text" name="sku" value="<?=$sku?>" />
         <button class="button button-primary">取得</button>
     </form>
     <?php if (get_transient('Valink')) : ?>
-        <p class="link-field"><?php echo get_transient('Valink'); ?></p>
+        <p class="link-field"><?php echo esc_html(get_transient('Valink')); ?></p>
         <p class="copy"></p>
     <?php endif; ?>
     <script>
