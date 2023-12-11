@@ -1,6 +1,8 @@
 <?php
 if(isset($_POST["sku"])){
     $sku = esc_html($_POST["sku"]);
+}else{
+    $sku = "";
 }
 ?>
 <div class="wrap">
