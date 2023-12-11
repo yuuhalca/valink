@@ -1,3 +1,8 @@
+<?php
+if(isset($_POST["sku"])){
+    $sku = esc_html($_POST["sku"]);
+}
+?>
 <div class="wrap">
     <style>
         p.link-field {
@@ -23,7 +28,7 @@
 
     <form method="post" action="<?php echo menu_page_url('Valink', false) . '&action=save'; ?>">
         <?php wp_nonce_field('Valink-save', 'name_of_nonce_field'); ?>
-        <input type="text" name="sku" value="<?=esc_html($_POST["sku"])?>" />
+        <input type="text" name="sku" value="<?=$sku?>" />
         <button class="button button-primary">取得</button>
     </form>
     <?php if (get_transient('Valink')) : ?>
