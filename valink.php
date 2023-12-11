@@ -38,7 +38,6 @@ class Valink
     {
         
         if (!empty($_GET['action']) && $_GET['action'] == 'save') {
-            var_dump($_GET);
             if (!wp_verify_nonce($_POST['name_of_nonce_field'], 'Valink-save')) {
                 exit;
             }
