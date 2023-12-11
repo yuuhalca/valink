@@ -1,4 +1,6 @@
 <?php
+if (!defined('ABSPATH')) exit;
+
 if(isset($_POST["sku"])){
     $sku = esc_html($_POST["sku"]);
 }else{
@@ -34,7 +36,7 @@ if(isset($_POST["sku"])){
         <button class="button button-primary">取得</button>
     </form>
     <?php if (get_transient('Valink')) : ?>
-        <p class="link-field"><?php echo esc_html(get_transient('Valink')); ?></p>
+        <p class="link-field"><?php echo esc_html(get_transient('VL_data_trans')); ?></p>
         <p class="copy"></p>
     <?php endif; ?>
     <script>

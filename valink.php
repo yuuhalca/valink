@@ -11,7 +11,7 @@
 
 defined('ABSPATH') || exit;
 
-class Valink
+class VL_main_class
 {
     static function init()
     {
@@ -68,12 +68,12 @@ class Valink
                 $id = $the_query->post->ID;
                 $link = get_the_permalink($id);
             }
-
-            set_transient('Valink', $link, 5);
+            
+            set_transient('VL_data_trans', $link, 5);
 
             wp_redirect(menu_page_url('Valink', false));
             exit;
         }
     }
 }
-add_action('init', 'Valink::init');
+add_action('init', 'VL_main_class::init');
