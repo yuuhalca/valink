@@ -58,7 +58,6 @@ class VL_Main_Class
     public function __construct()
     {
         add_action('admin_menu', [$this, 'vl_set_menus']);
-        add_action('admin_init', [$this, 'vl_save']);
     }
 
     public function vl_set_menus()
@@ -78,6 +77,8 @@ class VL_Main_Class
     {
         include_once plugin_dir_path(__FILE__) . 'views/Valink-get.php';
     }
+
+    
 }
 
 add_action('init', ['VL_Main_Class', 'init']);
