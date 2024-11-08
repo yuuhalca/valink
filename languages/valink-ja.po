@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Valink 1.5.8\n"
+"Project-Id-Version: Valink 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
@@ -16,22 +16,14 @@ msgstr ""
 msgid "Valink requires WooCommerce to be installed and active."
 msgstr "Valinkプラグインを使用するには、WooCommerceがインストールされ、有効化されている必要があります。"
 
-#: valink.php:48 valink.php:49
+#: valink.php:66 valink.php:67
 msgid "Valink"
 msgstr "Valink"
 
-#: valink.php:58 valink.php:59
-msgid "Registration"
-msgstr "登録"
-
-#: valink.php:75
-msgid "Nonce verification failed"
-msgstr "Nonceの検証に失敗しました"
-
-#: valink.php:80
-msgid "SKU is required"
-msgstr "SKUを入力してください"
-
-#: valink.php:112
+#: valink.php:120
 msgid "Link could not be retrieved"
 msgstr "リンクを取得できませんでした"
+
+#: valink.php:123
+msgid "SKU is required"
+msgstr "SKUを入力してください"
