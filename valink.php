@@ -4,12 +4,14 @@
  * Plugin Name: Valink
  * Plugin URI: https://github.com/yuuhalca/valink.git
  * Description: バリエーション商品単品のパーマリンクを取得する（任意のオプションが選択された状態のURLが取得できる）
- * Version: 1.6.0
+ * Version: 1.5.8
  * Author: Yu Ishiga
  * Author URI: https://backcountry-works.com
  * Text Domain: valink
  * Domain Path: /languages
- * Requires Plugins: WooCommerce
+ * Requires Plugins: woocommerce
+ * License: GPL-2.0-or-later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
 
 defined('ABSPATH') || exit;
