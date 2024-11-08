@@ -55,8 +55,8 @@ class VL_Main_Class
         );
         add_submenu_page(
             'valink',
-            __('登録', 'valink'),
-            __('登録', 'valink'),
+            __('Registration', 'valink'),
+            __('Registration', 'valink'),
             'manage_options',
             'valink',
             [$this, 'vl_add']
