@@ -35,6 +35,19 @@ function valink_load_textdomain() {
 }
 add_action('plugins_loaded', 'valink_load_textdomain');
 
+function valink_enqueue_scripts($hook) {
+    // 管理画面の「Valink」ページでのみ読み込む
+    if ('toplevel_page_valink' === $hook) {
+        wp_enqueue_script('valink-ajax', plugin_dir_url(__FILE__) . 'js/valink-ajax.js', ['jquery'], null, true);
+        
+        // admin-ajax.phpのURLをJavaScriptで利用できるようにローカライズ
+        wp_localize_script('valink-ajax', 'valinkAjax', [
+            'ajaxurl' => admin_url('admin-ajax.php'),
+        ]);
+    }
+}
+add_action('admin_enqueue_scripts', 'valink_enqueue_scripts');
+
 class VL_Main_Class
 {
     public static function init()
@@ -65,55 +78,52 @@ class VL_Main_Class
     {
         include_once plugin_dir_path(__FILE__) . 'views/Valink-get.php';
     }
-
-    public function vl_save()
-    {
-        if (!empty($_GET['action']) && sanitize_text_field($_GET['action']) == 'save') {
-            if (!isset($_POST['name_of_nonce_field']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['name_of_nonce_field'])), 'valink-save')) {
-                wp_die(__('Nonce verification failed', 'valink'));
-            }
-
-            $sku = isset($_POST['sku']) ? sanitize_text_field($_POST['sku']) : '';
-            if (empty($sku)) {
-                wp_die(__('SKU is required', 'valink'));
-            }
-
-            $args = [
-                'post_type' => 'product_variation',
-                'meta_query' => [
-                    [
-                        'key' => '_sku',
-                        'value' => $sku
-                    ]
-                ]
-            ];
-            $the_query = new WP_Query($args);
-            $link = '';
-
-            if ($the_query->have_posts()) {
-                $the_query->the_post();
-                $link = get_the_permalink(get_the_ID());
-            } else {
-                $args['post_type'] = 'product';
-                $the_query = new WP_Query($args);
-                if ($the_query->have_posts()) {
-                    $the_query->the_post();
-                    $link = get_the_permalink(get_the_ID());
-                }
-            }
-
-            wp_reset_postdata();
-
-            if ($link) {
-                set_transient('VL_data_trans', $link, 5);
-            } else {
-                wp_die(__('Link could not be retrieved', 'valink'));
-            }
-
-            wp_safe_redirect(menu_page_url('valink', false));
-            exit;
-        }
-    }
 }
 
 add_action('init', ['VL_Main_Class', 'init']);
+
+// AJAX処理
+function valink_get_link_ajax() {
+    if (isset($_POST['sku']) && !empty($_POST['sku'])) {
+        $sku = sanitize_text_field($_POST['sku']);
+        $args = [
+            'post_type' => 'product_variation',
+            'meta_query' => [
+                [
+                    'key' => '_sku',
+                    'value' => $sku
+                ]
+            ]
+        ];
+
+        $the_query = new WP_Query($args);
+        $link = '';
+
+        if ($the_query->have_posts()) {
+            $the_query->the_post();
+            $link = get_the_permalink(get_the_ID());
+        } else {
+            $args['post_type'] = 'product';
+            $the_query = new WP_Query($args);
+            if ($the_query->have_posts()) {
+                $the_query->the_post();
+                $link = get_the_permalink(get_the_ID());
+            }
+        }
+
+        wp_reset_postdata();
+
+        if ($link) {
+            echo esc_url($link);
+        } else {
+            echo __('Link could not be retrieved',"valink");
+        }
+    } else {
+        echo __('SKU is required',"valink");
+    }
+
+    wp_die(); // 必須
+}
+
+add_action('wp_ajax_valink_get_link', 'valink_get_link_ajax');
+add_action('wp_ajax_nopriv_valink_get_link', 'valink_get_link_ajax');
