@@ -56,7 +56,8 @@ A: Valink uses WooCommerce’s standard functionality and should work with any t
 ## Changelog
 
 ### 1.6.0
-* Asynchronisation, bug fixes.
+* Asynchronisation
+* bug fixes.
 
 ### 1.5.8
 * Initial release.
