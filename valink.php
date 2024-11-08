@@ -29,6 +29,12 @@ function valink_woocommerce_missing_notice() {
 
 add_action('plugins_loaded', 'valink_check_woocommerce_active');
 
+//翻訳ファイルの有効化
+function valink_load_textdomain() {
+    load_plugin_textdomain('valink', false, dirname(plugin_basename(__FILE__)) . '/languages');
+}
+add_action('plugins_loaded', 'valink_load_textdomain');
+
 class VL_Main_Class
 {
     public static function init()
