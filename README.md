@@ -1,12 +1,12 @@
 # === Valink ===
-- Contributors: yuuhalca
-- Tags: variation, permalink, WooCommerce, product
-- Requires at least: 6.3
-- Tested up to: 6.4.2
-- Stable tag: 1.6.0
-- License: GPLv2 or later
-- License URI: http://www.gnu.org/licenses/gpl-2.0.html
-- Requires PHP: 7.0
+Contributors: yuuhalca
+Tags: variation, permalink, WooCommerce, product
+Requires at least: 6.3
+Tested up to: 6.6.2
+Stable tag: 1.6.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Requires PHP: 7.0
 
 Get direct permalinks to specific variations of WooCommerce products.
 
@@ -69,3 +69,9 @@ No special instructions for upgrading.
 ## Arbitrary Section
 
 Thank you for using Valink! We are committed to enhancing WooCommerce functionality by making it easy to link to specific product variations.
+
+## Support the Project
+
+If you find this plugin useful and would like to support its development, please consider making a donation:
+
+[Donate via PayPal](https://paypal.me/bcworksjp)
