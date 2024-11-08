@@ -30,6 +30,6 @@ if (!defined('ABSPATH')) exit;
         <button type="submit" class="button button-primary"><?php esc_html_e('取得', 'valink'); ?></button>
     </form>
 
-    <div id="result"></div>
+    <div id="result" style="display:none"></div>
     <div class="copy"></div>
 </div>
