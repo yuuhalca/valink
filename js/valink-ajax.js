@@ -36,7 +36,7 @@ jQuery(document).ready(function($) {
     // リンクをクリックしてコピーする機能
     $("#result").on("click", function() {
         let text = $(this).text();
-        $(".copy").text("コピーしました"); // コピー成功メッセージを表示
+        $(".copy").text("コピーしました").wait(3000).fadeOut(); // コピー成功メッセージを表示
 
         // クリップボードにコピー
         if (navigator.clipboard) {
