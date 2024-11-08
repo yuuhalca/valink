@@ -34,7 +34,7 @@ jQuery(document).ready(function($) {
     });
 
     // リンクをクリックしてコピーする機能
-    $(".link-field").on("click", function() {
+    $("#result").on("click", function() {
         let text = $(this).text();
         $(".copy").text("コピーしました"); // コピー成功メッセージを表示
 
