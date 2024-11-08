@@ -36,12 +36,12 @@ jQuery(document).ready(function($) {
     // リンクをクリックしてコピーする機能
     $(".link-field").on("click", function() {
         let text = $(this).text();
-        $(".copy").text(valinkAjax.copy_message); // コピー成功メッセージを表示
+        $(".copy").text("コピーしました"); // コピー成功メッセージを表示
 
         // クリップボードにコピー
         if (navigator.clipboard) {
             navigator.clipboard.writeText(text).catch(function() {
-                alert(valinkAjax.copy_error_message); // コピー失敗時のエラーメッセージ
+                alert("コピーできませんでした"); // コピー失敗時のエラーメッセージ
             });
         } else if (window.clipboardData) {
             window.clipboardData.setData("Text", text);
