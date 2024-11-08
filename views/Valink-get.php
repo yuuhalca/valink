@@ -1,12 +1,9 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-if(isset($_POST["sku"])){
-    $sku = esc_html($_POST["sku"]);
-}else{
-    $sku = "";
-}
+$sku = isset($_POST["sku"]) ? esc_attr($_POST["sku"]) : '';
 ?>
+
 <div class="wrap">
     <style>
         p.link-field {
@@ -27,28 +24,32 @@ if(isset($_POST["sku"])){
             background: #eaeaea;
         }
     </style>
-    <h1>リンク取得</h1>
-    <p>入力欄に品番を入れて商品のバリエーションへの直リンクを取得できます</p>
+    <h1><?php esc_html_e('リンク取得', 'valink'); ?></h1>
+    <p><?php esc_html_e('入力欄に品番を入れて商品のバリエーションへの直リンクを取得できます', 'valink'); ?></p>
 
-    <form method="post" action="<?php echo esc_url(menu_page_url('Valink', false)) . '&action=save'; ?>">
-        <?php wp_nonce_field('Valink-save', 'name_of_nonce_field'); ?>
-        <input type="text" name="sku" value="<?=$sku?>" />
-        <button class="button button-primary">取得</button>
+    <form method="post" action="<?php echo esc_url(menu_page_url('valink', false) . '&action=save'); ?>">
+        <?php wp_nonce_field('valink-save', 'name_of_nonce_field'); ?>
+        <input type="text" name="sku" value="<?php echo esc_attr($sku); ?>" />
+        <button class="button button-primary"><?php esc_html_e('取得', 'valink'); ?></button>
     </form>
-    <?php if (get_transient('VL_data_trans')) : ?>
-        <p class="link-field"><?php echo esc_html(get_transient('VL_data_trans')); ?></p>
+    <?php if ($link = get_transient('VL_data_trans')) : ?>
+        <p class="link-field"><?php echo esc_html($link); ?></p>
         <p class="copy"></p>
     <?php endif; ?>
     <script>
-        jQuery(".link-field").on("click", function() {
-            let text = jQuery(".link-field").text();
-            jQuery(".copy").text("コピーしました");
+        jQuery(document).ready(function($) {
+            $(".link-field").on("click", function() {
+                let text = $(this).text();
+                $(".copy").text("<?php esc_html_e('コピーしました', 'valink'); ?>");
 
-            if (navigator.clipboard == undefined) {
-                window.clipboardData.setData("Text", text);
-            } else {
-                navigator.clipboard.writeText(text);
-            }
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(text).catch(function() {
+                        alert("<?php esc_html_e('クリップボードにコピーできませんでした', 'valink'); ?>");
+                    });
+                } else if (window.clipboardData) {
+                    window.clipboardData.setData("Text", text);
+                }
+            });
         });
     </script>
 </div>
