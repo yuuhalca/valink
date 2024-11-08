@@ -45,7 +45,6 @@ jQuery(document).ready(function($) {
             });
         } else if (window.clipboardData) {
             window.clipboardData.setData("Text", text);
-            $("#message").text("コピーしました");
         }
     });
 });

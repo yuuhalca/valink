@@ -31,5 +31,5 @@ if (!defined('ABSPATH')) exit;
     </form>
 
     <div id="result"></div>
-    <div id="message"></div>
+    <div class="copy"></div>
 </div>
