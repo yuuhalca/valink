@@ -49,17 +49,9 @@ class VL_Main_Class
             __('Valink', 'valink'),
             'manage_options',
             'valink',
-            null,
+            [$this, 'vl_add'],
             'dashicons-list-view',
             50
-        );
-        add_submenu_page(
-            'valink',
-            __('Registration', 'valink'),
-            __('Registration', 'valink'),
-            'manage_options',
-            'valink',
-            [$this, 'vl_add']
         );
     }
 
