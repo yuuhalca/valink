@@ -65,7 +65,7 @@ class VL_Main_Class
 
     public function vl_add()
     {
-        include_once plugin_dir_path(__FILE__) . 'views/valink-get.php';
+        include_once plugin_dir_path(__FILE__) . 'views/Valink-get.php';
     }
 
     public function vl_save()
