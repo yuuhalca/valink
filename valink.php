@@ -115,12 +115,12 @@ function valink_get_link_ajax() {
         wp_reset_postdata();
 
         if ($link) {
-            echo esc_url($link);
+            wp_send_json_success(['link' => $link]);  // 成功した場合
         } else {
-            echo __('Link could not be retrieved',"valink");
+            wp_send_json_error(['message' => __('Link could not be retrieved', 'valink')]);  // リンクが取得できなかった場合
         }
     } else {
-        echo __('SKU is required',"valink");
+        wp_send_json_error(['message' => __('SKU is required', 'valink')]);  // SKUが空の場合
     }
 
     wp_die(); // 必須
