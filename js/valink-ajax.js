@@ -1,40 +1,47 @@
 jQuery(document).ready(function($) {
+    // フォームが送信されるときの処理
     $("#valink-form").on("submit", function(e) {
         e.preventDefault();
 
-        var sku = $("#sku").val();
+        var sku = $("#sku").val(); // SKUの値を取得
 
         if (sku) {
             $.ajax({
-                url: "<?php echo admin_url('admin-ajax.php'); ?>",
+                url: valinkAjax.ajaxurl, // WordPress の admin-ajax.php にアクセス
                 type: "POST",
                 data: {
-                    action: "valink_get_link",
-                    sku: sku
+                    action: "valink_get_link", // PHPで定義されたアクション名
+                    sku: sku, // フォームから送信された SKU
+                    security: valinkAjax.nonce // Nonce セキュリティチェック
                 },
                 success: function(response) {
-                    if (response) {
-                        $("#result").html('<p class="link-field">' + response + '</p>');
+                    // 成功時に取得したリンクを表示
+                    if (response.success) {
+                        $("#result").html('<p class="link-field">' + response.data.link + '</p>');
                     } else {
-                        $("#result").html('<p><?php esc_html_e("Link could not be retrieved", "valink"); ?></p>');
+                        $("#result").html('<p>' + response.data.message + '</p>');
                     }
                 },
                 error: function() {
-                    $("#result").html('<p><?php esc_html_e("Error occurred", "valink"); ?></p>');
+                    // エラー発生時にエラーメッセージを表示
+                    $("#result").html('<p>' + valinkAjax.error_message + '</p>');
                 }
             });
         } else {
-            $("#result").html('<p><?php esc_html_e("SKU is required", "valink"); ?></p>');
+            // SKUが空の場合のメッセージ
+            $("#result").html('<p>' + valinkAjax.sku_required + '</p>');
         }
     });
 
+    // リンクをクリックしてコピーする機能
     $(".link-field").on("click", function() {
         let text = $(this).text();
-        $(".copy").text("<?php esc_html_e('コピーしました', 'valink'); ?>");
+        $(".copy").text(valinkAjax.copy_message); // コピー成功メッセージを表示
 
+        // クリップボードにコピー
         if (navigator.clipboard) {
             navigator.clipboard.writeText(text).catch(function() {
-                alert("<?php esc_html_e('クリップボードにコピーできませんでした', 'valink'); ?>");
+                alert(valinkAjax.copy_error_message); // コピー失敗時のエラーメッセージ
             });
         } else if (window.clipboardData) {
             window.clipboardData.setData("Text", text);
