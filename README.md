@@ -3,7 +3,7 @@
 - Tags: variation, permalink, WooCommerce, product
 - Requires at least: 6.3
 - Tested up to: 6.4.2
-- Stable tag: 1.5.7
+- Stable tag: 1.5.8
 - License: GPLv2 or later
 - License URI: http://www.gnu.org/licenses/gpl-2.0.html
 - Requires PHP: 7.0
@@ -55,7 +55,7 @@ A: Valink uses WooCommerce’s standard functionality and should work with any t
 
 ## Changelog
 
-### 1.5.7
+### 1.5.8
 * Initial release.
 
 ## Upgrade Notice
