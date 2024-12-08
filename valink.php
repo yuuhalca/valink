@@ -19,6 +19,12 @@
 
 defined('ABSPATH') || exit;
 
+// プラグインのバージョン番号を取得
+function bcw_valink_get_plugin_version() {
+    $plugin_data = get_plugin_data( plugin_dir_path( __FILE__ ) . 'valink.php' );
+    return $plugin_data['Version'];
+}
+
 // WooCommerceがアクティブであるかを確認
 function bcw_valink_check_woocommerce_active() {
     if (!class_exists('WooCommerce')) {
@@ -43,7 +49,7 @@ add_action('plugins_loaded', 'bcw_valink_load_textdomain');
 function bcw_valink_enqueue_scripts($hook) {
     // 管理画面の「Valink」ページでのみ読み込む
     if ('toplevel_page_bcw_valink' === $hook) {
-        wp_enqueue_script('bcw-valink-ajax', plugin_dir_url(__FILE__) . 'js/valink-ajax.js', ['jquery'], null, true);
+        wp_enqueue_script('bcw-valink-ajax', plugin_dir_url(__FILE__) . 'js/valink-ajax.js', ['jquery'], bcw_valink_get_plugin_version(), true);
 
         // admin-ajax.phpのURLをJavaScriptで利用できるようにローカライズ
         wp_localize_script('bcw-valink-ajax', 'bcwValinkAjax', [
