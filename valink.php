@@ -4,7 +4,7 @@
  * Plugin Name: Valink
  * Plugin URI: https://github.com/yuuhalca/valink.git
  * Description: バリエーション商品単品のパーマリンクを取得する（任意のオプションが選択された状態のURLが取得できる）
- * Version: 1.6.3
+ * Version: 1.6.4
  * Author: Yu Ishiga
  * Author URI: https://backcountry-works.com
  * License: GPL-2.0-or-later
