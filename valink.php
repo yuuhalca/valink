@@ -101,7 +101,7 @@ add_action('init', ['BCW_Valink_Main_Class', 'init']);
 // AJAX処理
 function bcw_valink_get_link_ajax() {
     // Nonce チェック
-    if (isset($_POST['valink_nonce_field']) ||!wp_verify_nonce($_POST['valink_nonce_field'], 'valink_nonce_action')) {
+    if (isset($_POST['valink_nonce_field']) || wp_verify_nonce(wp_unslash($_POST['valink_nonce_field']), 'valink_nonce_action')) {
         if (isset($_POST['sku']) && !empty($_POST['sku'])) {
             // エスケープ解除とサニタイズ
             $sku = sanitize_text_field(wp_unslash($_POST['sku']));
