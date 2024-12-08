@@ -54,6 +54,7 @@ function bcw_valink_enqueue_scripts($hook) {
         // admin-ajax.phpのURLをJavaScriptで利用できるようにローカライズ
         wp_localize_script('bcw-valink-ajax', 'bcwValinkAjax', [
             'ajaxurl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('valink_nonce_action'),
         ]);
     }
 }
