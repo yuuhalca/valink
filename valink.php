@@ -48,8 +48,8 @@ function bcw_valink_enqueue_scripts($hook) {
 }
 add_action('admin_enqueue_scripts', 'bcw_valink_enqueue_scripts');
 
-function bcw_valink_enqueue_styles() {
-    // プラグインのCSSファイルを登録して読み込み
+// 管理画面用にCSSを読み込む場合
+function bcw_valink_admin_enqueue_styles() {
     wp_enqueue_style(
         'bcw-valink-styles', // ハンドル名
         plugin_dir_url(__FILE__) . 'css/valink-styles.css', // CSSファイルのURL
@@ -58,7 +58,7 @@ function bcw_valink_enqueue_styles() {
         'all' // メディアタイプ
     );
 }
-add_action('wp_enqueue_scripts', 'bcw_valink_enqueue_styles');
+add_action('admin_enqueue_scripts', 'bcw_valink_admin_enqueue_styles');
 
 class BCW_Valink_Main_Class
 {
