@@ -3,7 +3,7 @@
 - Tags: variation, permalink, WooCommerce, product
 - Requires at least: 6.3
 - Tested up to: 6.7
-- Stable tag: 1.6.0
+- Stable tag: 1.6.2
 - License: GPLv2 or later
 - License URI: http://www.gnu.org/licenses/gpl-2.0.html
 - Requires PHP: 7.0
