@@ -7,7 +7,7 @@ jQuery(document).ready(function($) {
 
         if (sku) {
             $.ajax({
-                url: bcwbcwValinkAjax.ajaxurl, // WordPress の admin-ajax.php にアクセス
+                url: bcwValinkAjax.ajaxurl, // WordPress の admin-ajax.php にアクセス
                 type: "POST",
                 data: {
                     action: "valink_get_link", // PHPで定義されたアクション名
