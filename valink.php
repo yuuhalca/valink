@@ -100,49 +100,57 @@ add_action('init', ['BCW_Valink_Main_Class', 'init']);
 
 // AJAX処理
 function bcw_valink_get_link_ajax() {
-    // Nonce チェック
-    if (isset($_POST['valink_nonce_field']) || wp_verify_nonce(wp_unslash($_POST['valink_nonce_field']), 'valink_nonce_action')) {
-        if (isset($_POST['sku']) && !empty($_POST['sku'])) {
-            // エスケープ解除とサニタイズ
-            $sku = sanitize_text_field(wp_unslash($_POST['sku']));
-            
-            $args = [
-                'post_type' => 'product_variation',
-                'meta_query' => [
-                    [
-                        'key' => '_sku',
-                        'value' => $sku
+    // Nonce検証
+    if (isset($_POST['valink_nonce_field'])) {
+        $nonce = wp_unslash($_POST['valink_nonce_field']); // スラッシュを取り除く
+        $nonce = sanitize_text_field($nonce); // サニタイズ
+
+        // Nonceが正しいかを検証
+        if (wp_verify_nonce($nonce, 'valink_nonce_action')) {
+            if (isset($_POST['sku']) && !empty($_POST['sku'])) {
+                // SKUのサニタイズ
+                $sku = sanitize_text_field(wp_unslash($_POST['sku']));
+
+                $args = [
+                    'post_type' => 'product_variation',
+                    'meta_query' => [
+                        [
+                            'key' => '_sku',
+                            'value' => $sku
+                        ]
                     ]
-                ]
-            ];
-    
-            $the_query = new WP_Query($args);
-            $link = '';
-    
-            if ($the_query->have_posts()) {
-                $the_query->the_post();
-                $link = get_the_permalink(get_the_ID());
-            } else {
-                $args['post_type'] = 'product';
+                ];
+
                 $the_query = new WP_Query($args);
+                $link = '';
+
                 if ($the_query->have_posts()) {
                     $the_query->the_post();
                     $link = get_the_permalink(get_the_ID());
+                } else {
+                    $args['post_type'] = 'product';
+                    $the_query = new WP_Query($args);
+                    if ($the_query->have_posts()) {
+                        $the_query->the_post();
+                        $link = get_the_permalink(get_the_ID());
+                    }
                 }
-            }
-    
-            wp_reset_postdata();
-    
-            if ($link) {
-                wp_send_json_success(['link' => $link]);  // 成功した場合
+
+                wp_reset_postdata();
+
+                if ($link) {
+                    wp_send_json_success(['link' => $link]);  // 成功した場合
+                } else {
+                    wp_send_json_error(['message' => __('Link could not be retrieved', 'valink')]);  // リンクが取得できなかった場合
+                }
             } else {
-                wp_send_json_error(['message' => __('Link could not be retrieved', 'valink')]);  // リンクが取得できなかった場合
+                wp_send_json_error(['message' => __('SKU is required', 'valink')]);  // SKUが空の場合
             }
         } else {
-            wp_send_json_error(['message' => __('SKU is required', 'valink')]);  // SKUが空の場合
+            wp_send_json_error(['message' => __('Invalid nonce.', 'valink')]);  // Nonceが無効
         }
-    }else{
-        wp_send_json_error(['message' => __('Nonce verification failed', 'valink')]);  // Nonceが無効な場合
+    } else {
+        wp_send_json_error(['message' => __('Nonce field is missing.', 'valink')]);  // Nonceが存在しない場合
     }
 
     wp_die(); // 必須
