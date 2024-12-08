@@ -102,8 +102,8 @@ add_action('init', ['BCW_Valink_Main_Class', 'init']);
 function bcw_valink_get_link_ajax() {
     // Nonce検証
     if (isset($_POST['valink_nonce_field'])) {
-        $nonce = wp_unslash($_POST['valink_nonce_field']); // スラッシュを取り除く
-        $nonce = sanitize_text_field($nonce); // サニタイズ
+        $nonce = wp_unslash(sanitize_text_field($_POST['valink_nonce_field'])); // スラッシュを取り除く
+        //$nonce = sanitize_text_field($nonce); // サニタイズ
 
         // Nonceが正しいかを検証
         if (wp_verify_nonce($nonce, 'valink_nonce_action')) {
