@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
                 url: bcwValinkAjax.ajaxurl, // WordPress の admin-ajax.php にアクセス
                 type: "POST",
                 data: {
-                    action: "valink_get_link", // PHPで定義されたアクション名
+                    action: "bcw_valink_get_link", // PHPで定義されたアクション名
                     sku: sku, // フォームから送信された SKU
                     security: bcwValinkAjax.nonce // Nonce セキュリティチェック
                 },
