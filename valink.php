@@ -109,37 +109,34 @@ function bcw_valink_get_link_ajax() {
                 // SKUのサニタイズ
                 $sku = sanitize_text_field(wp_unslash($_POST['sku']));
 
-                global $wpdb;
+                $args = [
+                    'post_type' => 'product_variation',
+                    'meta_query' => [
+                        [
+                            'key' => '_sku',
+                            'value' => $sku
+                        ]
+                    ]
+                ];
 
-                // 最初に product_variation のテーブルを確認
-                $query = $wpdb->prepare(
-                    "SELECT p.ID, p.post_title
-                     FROM {$wpdb->posts} p
-                     INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
-                     WHERE pm.meta_key = '_sku' AND pm.meta_value = %s
-                       AND p.post_type = 'product_variation' AND p.post_status = 'publish'
-                     LIMIT 1", $sku
-                );
+                $the_query = new WP_Query($args);
+                $link = '';
 
-                $result = $wpdb->get_row($query); // 1件だけ取得
-
-                if (!$result) {
-                    // product_variation に該当しない場合、次に product を確認
-                    $query = $wpdb->prepare(
-                        "SELECT p.ID, p.post_title
-                         FROM {$wpdb->posts} p
-                         INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
-                         WHERE pm.meta_key = '_sku' AND pm.meta_value = %s
-                           AND p.post_type = 'product' AND p.post_status = 'publish'
-                         LIMIT 1", $sku
-                    );
-
-                    $result = $wpdb->get_row($query); // 1件だけ取得
+                if ($the_query->have_posts()) {
+                    $the_query->the_post();
+                    $link = get_the_permalink(get_the_ID());
+                } else {
+                    $args['post_type'] = 'product';
+                    $the_query = new WP_Query($args);
+                    if ($the_query->have_posts()) {
+                        $the_query->the_post();
+                        $link = get_the_permalink(get_the_ID());
+                    }
                 }
 
-                if ($result) {
-                    // リンクが見つかった場合
-                    $link = get_permalink($result->ID);
+                wp_reset_postdata();
+
+                if ($link) {
                     wp_send_json_success(['link' => $link]);  // 成功した場合
                 } else {
                     wp_send_json_error(['message' => __('Link could not be retrieved', 'valink')]);  // リンクが取得できなかった場合
