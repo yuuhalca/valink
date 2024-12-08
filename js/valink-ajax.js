@@ -12,7 +12,7 @@ jQuery(document).ready(function($) {
                 data: {
                     action: "bcw_valink_get_link", // PHPで定義されたアクション名
                     sku: sku, // フォームから送信された SKU
-                    security: bcwValinkAjax.nonce // Nonce セキュリティチェック
+                    valink_nonce_field: bcwValinkAjax.nonce // Nonce セキュリティチェック
                 },
                 success: function(response) {
                     // 成功時に取得したリンクを表示

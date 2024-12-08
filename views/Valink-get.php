@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) exit;
     <p><?php esc_html_e('入力欄に品番を入れて商品のバリエーションへの直リンクを取得できます', 'valink'); ?></p>
 
     <form id="valink-form">
-    <?php wp_nonce_field('valink_nonce_action', 'valink_nonce_field'); ?>
+        <?php wp_nonce_field('valink_nonce_action', 'valink_nonce_field'); ?>
         <input type="text" id="sku" name="sku" />
         <button type="submit" class="button button-primary"><?php esc_html_e('取得', 'valink'); ?></button>
     </form>
