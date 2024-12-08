@@ -117,6 +117,7 @@ function bcw_valink_get_link_ajax() {
 
                 $args = [
                     'post_type' => 'product_variation',
+                    // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
                     'meta_query' => [
                         [
                             'key' => '_sku',
