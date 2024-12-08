@@ -4,12 +4,17 @@
  * Plugin Name: Valink
  * Plugin URI: https://github.com/yuuhalca/valink.git
  * Description: バリエーション商品単品のパーマリンクを取得する（任意のオプションが選択された状態のURLが取得できる）
- * Version: 1.6.2
+ * Version: 1.6.3
  * Author: Yu Ishiga
  * Author URI: https://backcountry-works.com
+ * License: GPL-2.0-or-later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: valink
  * Domain Path: /languages
- * Requires Plugins: WooCommerce
+ * Requires at least: 6.3
+ * Tested up to: 6.7
+ * Requires PHP: 7.0
+ * Requires Plugins: woocommerce
  */
 
 defined('ABSPATH') || exit;
@@ -95,8 +100,17 @@ add_action('init', ['BCW_Valink_Main_Class', 'init']);
 
 // AJAX処理
 function bcw_valink_get_link_ajax() {
+    // Nonce チェック
+    if (!isset($_POST['valink_nonce_field']) || !wp_verify_nonce($_POST['valink_nonce_field'], 'valink_nonce_action')) {
+        wp_send_json_error(['message' => __('Nonce verification failed', 'valink')]);  // Nonceが無効な場合
+        wp_die(); // 終了
+    }
+
     if (isset($_POST['sku']) && !empty($_POST['sku'])) {
+        // エスケープ解除とサニタイズ
+        $sku = isset($_POST['sku']) ? wp_unslash($_POST['sku']) : '';  // wp_unslashでエスケープ解除
         $sku = sanitize_text_field($_POST['sku']);
+        
         $args = [
             'post_type' => 'product_variation',
             'meta_query' => [
