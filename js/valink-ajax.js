@@ -7,12 +7,12 @@ jQuery(document).ready(function($) {
 
         if (sku) {
             $.ajax({
-                url: valinkAjax.ajaxurl, // WordPress の admin-ajax.php にアクセス
+                url: bcwbcwValinkAjax.ajaxurl, // WordPress の admin-ajax.php にアクセス
                 type: "POST",
                 data: {
                     action: "valink_get_link", // PHPで定義されたアクション名
                     sku: sku, // フォームから送信された SKU
-                    security: valinkAjax.nonce // Nonce セキュリティチェック
+                    security: bcwValinkAjax.nonce // Nonce セキュリティチェック
                 },
                 success: function(response) {
                     // 成功時に取得したリンクを表示
@@ -24,12 +24,12 @@ jQuery(document).ready(function($) {
                 },
                 error: function() {
                     // エラー発生時にエラーメッセージを表示
-                    $("#result").html('<p>' + valinkAjax.error_message + '</p>');
+                    $("#result").html('<p>' + bcwValinkAjax.error_message + '</p>');
                 }
             });
         } else {
             // SKUが空の場合のメッセージ
-            $("#result").html('<p>' + valinkAjax.sku_required + '</p>');
+            $("#result").html('<p>' + bcwValinkAjax.sku_required + '</p>');
         }
     });
 
