@@ -141,7 +141,7 @@ function bcw_valink_get_link_ajax() {
         } else {
             wp_send_json_error(['message' => __('SKU is required', 'valink')]);  // SKUが空の場合
         }
-    }eles{
+    }else{
         wp_send_json_error(['message' => __('Nonce verification failed', 'valink')]);  // Nonceが無効な場合
     }
 
